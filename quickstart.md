@@ -14,7 +14,7 @@ Here the study's id is `the phs000204.v1.p1`. This will return a JSON object re
 
 **Result of retrieving one study in a web browser**
 
-![The result for one study displayed in a browser](https://confluence.ncbi.nlm.nih.gov/download/attachments/172626713/image2020-2-28_16-58-15.png?version=2&modificationDate=1600963268000&api=v2 "The result for one study displayed in a browser")
+![The result for one study displayed in a browser](img/one_study_result_in_browser.png "The result for one study displayed in a browser")
 
 We model study metadata using FHIR ResearchStudy objects. The full specification is at <https://www.hl7.org/fhir/researchstudy.html>
 
@@ -46,7 +46,7 @@ This will return the first 100 studies in a Bundle resource (you can see which t
 
 **First 100 studies**
 
-![Result of getting all ResearchStudy objects in a browser](https://confluence.ncbi.nlm.nih.gov/download/attachments/172626713/image2020-2-28_17-54-20.png?version=2&modificationDate=1600966762000&api=v2 "Result of getting all ResearchStudy objects in a browser")
+![Result of getting all ResearchStudy objects in a browser](img/all_studies_result_in_browser.png "Result of getting all ResearchStudy objects in a browser")
 
 ### Next and previous
 
