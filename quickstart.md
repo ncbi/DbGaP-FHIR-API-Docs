@@ -1,34 +1,34 @@
 Location
 ========
 
-dbGaP's API is available at[ http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1) It is a standard FHIR API. The documentation for FHIR is at <https://www.hl7.org/fhir/>. This guide is just a quick-start. We have documented how dbGaP concepts map to FHIR resources at [https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive/.](https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
+dbGaP's API is available at[http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1) It is a standard FHIR API. The documentation for FHIR is at <https://www.hl7.org/fhir/>. This guide is just a quick-start. We have documented how dbGaP concepts map to FHIR resources at [https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive/.](https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
 
 Retrieving metadata for one study
 =================================
 
-You can access the metadata for a single study with a URL formed by adding the study's id after <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/>. For example:
+You can access the metadata for a single study with a URL formed by adding the study's id after <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/>. For example:
 
 <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/phs000204.v1.p1>
 
-Here the study's id is `the phs000204.v1.p1`. This will return a JSON object representing the study. If you access this URL using a web browser, the server will detect that and give you a nicely formatted HTML page with the JSON on it. However, do not worry, using a GET request from a program will still return the JSON.
+Here the study's id is `the phs000204.v1.p1`. This will return a JSON object representing the study. If you access this URL using a web browser, the server will detect that and give you a nicely formatted HTML page with the JSON on it. However, do not worry, using a GET request from a program will still return the JSON.
 
 **Result of retrieving one study in a web browser**
 
 ![The result for one study displayed in a browser](img/one_study_result_in_browser.png "The result for one study displayed in a browser")
 
-We model study metadata using FHIR ResearchStudy objects. The full specification is at <https://www.hl7.org/fhir/researchstudy.html>
+We model study metadata using FHIR ResearchStudy objects. The full specification is at <https://www.hl7.org/fhir/researchstudy.html>
 
-The `extension` fields
+The `extension` fields
 ----------------------
 
-We make heavy use of the `extension` field to model things not available in the standard specification. Line 10 holds the first occurrence of an extension in the example. Each extension has a URL that links to a machine-readable description of that field called a StructureDefinition. The URLs are named to allow a human to guess their semantics. The names are separated by the hyphen character (-) into fields and subfields. So <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/StructureDefinition/ResearchStudy-Content-NumPhenotypeDatasets> is the `NumPhenotypeDatasets` field in the `Content` field in the `ResearchStudy` resource.
+We make heavy use of the `extension` field to model things not available in the standard specification. Line 10 holds the first occurrence of an extension in the example. Each extension has a URL that links to a machine-readable description of that field called a StructureDefinition. The URLs are named to allow a human to guess their semantics. The names are separated by the hyphen character (-) into fields and subfields. So <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/StructureDefinition/ResearchStudy-Content-NumPhenotypeDatasets> is the `NumPhenotypeDatasets` field in the `Content` field in the `ResearchStudy` resource.
 
 For example, line 13 has a URL that shows it is the ReleaseDate field and its value (on line 14) is "2010-08-19", meaning August 19, 2010, in ISO date format.
 
 Codeable Concepts
 -----------------
 
-Many values are codes within a system. For example, line 19 says "`valueCoding`" indicating that its value comes from a coding system. These have several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
+Many values are codes within a system. For example, line 19 says "`valueCoding`" indicating that its value comes from a coding system. These have several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
 
 Retrieving multiple studies
 ===========================
@@ -42,7 +42,7 @@ To retrieve all the studies we have stored, you would start with the URL:
 
 <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy>
 
-This will return the first 100 studies in a Bundle resource (you can see which type of resource it is by looking at the "resourceType" field). If you add the parameter "_count" to you can change the number of studies returned for each request. For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_count=2> will only return the first two studies on the first page. In the following, we will assume you've left the count at 100.
+This will return the first 100 studies in a Bundle resource (you can see which type of resource it is by looking at the "resourceType" field). If you add the parameter "_count" to you can change the number of studies returned for each request. For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_count=2> will only return the first two studies on the first page. In the following, we will assume you've left the count at 100.
 
 **First 100 studies**
 
@@ -54,28 +54,28 @@ You can get the next 100 studies by accessing the URL (line 13) in the object un
 
 ### Entries
 
-All 100 studies can be found under the `entry` field. Each entry will have 3 fields: "`fullURL`", a link directly to that study object; "`resource`", the object you'd find at that "`fullURL`" link; and "`search`", parameters about the search that produced this entry.
+All 100 studies can be found under the `entry` field. Each entry will have 3 fields: "`fullURL`", a link directly to that study object; "`resource`", the object you'd find at that "`fullURL`" link; and "`search`", parameters about the search that produced this entry.
 
 Retrieving studies matching a criterion (searching)
 ---------------------------------------------------
 
-Rather than retrieving all studies, you can get a subset by including search parameters. The list of available search parameters is available at <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/metadata> in the search param field of the element of the resource array which has its type field set to "ResearchStudy". A more human-readable version is in the official documents <https://www.hl7.org/fhir/researchstudy.html#search>. This has only the minimum search parameters required by the standard and omits parameters unique to the dbGaP API.
+Rather than retrieving all studies, you can get a subset by including search parameters. The list of available search parameters is available at <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/metadata> in the search param field of the element of the resource array which has its type field set to "ResearchStudy". A more human-readable version is in the official documents <https://www.hl7.org/fhir/researchstudy.html#search>. This has only the minimum search parameters required by the standard and omits parameters unique to the dbGaP API.
 
 ### Prefix
 
-Searches work by adding search parameters after a "?" as query parameters. For example, we can search for studies whose title starts with ADGC using <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?title=ADGC>. This will return a single study, the "ADGC Genome Wide Association Study." Note that if you want characters besides letters and numbers (like spaces), you will need to "[url-encode](https://en.wikipedia.org/wiki/Percent-encoding)" them. The encoding for the space character is %20. So, to search for a study starting with, "ADGC Genome", we use <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?title=ADGC%20Genome>.
+Searches work by adding search parameters after a "?" as query parameters. For example, we can search for studies whose title starts with ADGC using <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?title=ADGC>. This will return a single study, the "ADGC Genome Wide Association Study." Note that if you want characters besides letters and numbers (like spaces), you will need to "[url-encode](https://en.wikipedia.org/wiki/Percent-encoding)" them. The encoding for the space character is %20. So, to search for a study starting with, "ADGC Genome", we use <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?title=ADGC%20Genome>.
 
 ### Substring
 
-We can also search for part of a text field that is not at the beginning. For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?title:contains=Wide> will return all the studies whose title includes the word "Wide". The `title` search parameter has type "`string`" so the "`contains`" operator works on it. You can get the full list of what you can do with string parameters at <http://hl7.org/fhir/search.html#string>.
+We can also search for part of a text field that is not at the beginning. For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?title:contains=Wide> will return all the studies whose title includes the word "Wide". The `title` search parameter has type "`string`" so the "`contains`" operator works on it. You can get the full list of what you can do with string parameters at <http://hl7.org/fhir/search.html#string>.
 
 ### Tokens
 
-The `keyword` search parameter has type `"token"` not "`string`", so the `"contains"` operator does not work on it. You can search for text that begins a string <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?keyword:text=Dementia>, but this will miss records that do not have "dementia" as the first word in one of their `keyword` entries.
+The `keyword` search parameter has type `"token"` not "`string`", so the `"contains"` operator does not work on it. You can search for text that begins a string <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?keyword:text=Dementia>, but this will miss records that do not have "dementia" as the first word in one of their `keyword` entries.
 
 ### Ids
 
-You can also search for objects by id. This is most useful when you want to retrieve multiple objects in a single request and you already know their ids. For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005.v1.p1,phs000001.v3.p1> will retrieve two studies.
+You can also search for objects by id. This is most useful when you want to retrieve multiple objects in a single request and you already know their ids. For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005.v1.p1,phs000001.v3.p1> will retrieve two studies.
 
 * * * * *
 
@@ -84,7 +84,7 @@ Other objects
 
 Besides ResearchStudy, the server also contains Patient and Observation data. This is individual-level data simulated to resemble TOPMed's new, harmonized data. In the future, it will require authentication, but is currently available for demonstration purposes. Observations describe individual measurements like blood pressure or survey answers. Patients are the research subjects from which the measurements were taken. We intend to eventually use the ResearchSubject resource to connect Patients with ResearchStudy resources.
 
-For more information about Patient and Observation resources, please visit the FHIR website:
+For more information about Patient and Observation resources, please visit the FHIR website:
 
 -   [Patient](https://www.hl7.org/fhir/Patient.html)
 -   [Observation](https://www.hl7.org/fhir/observation.html)
