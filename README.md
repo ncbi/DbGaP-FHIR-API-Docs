@@ -4,6 +4,7 @@ This is the documentation repository for the [dbGaP FHIR API](http://dbgap-api.n
 
 ## Available Documentation
 * [**Quickstart**](quickstart.md)
+* [**Mapping dbGaP concepts to FHIR concepts**](https://dbgap-api-preview.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
 
 ## Maintenance
 The team is focused on adding features and data.
@@ -18,6 +19,9 @@ We are aware that the current documentation is
 [low quality and there is not enough of it](https://www.goodreads.com/quotes/4151-there-s-an-old-joke---um-two-elderly-women-are).
 If you report a bug or request a feature, it will probably be overlooked
 and neglected.
+
+The CSV download for the interactive concept mapping does
+not handle quoting correctly. You'll need to hand-edit it.
 
 ## Contact
 If, despite knowing it is nearly equivalent
