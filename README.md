@@ -1,6 +1,10 @@
 # DbGaP FHIR API Docs
 
-This is the documentation repository for the [dbGaP FHIR API](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1).
+This is the documentation repository for the [dbGaP FHIR API](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1).  
+
+[What is dbGaP?](https://www.ncbi.nlm.nih.gov/gap/)  
+[What is FHIR?](https://hl7.org/fhir/)  
+[What is an API?](https://en.wikipedia.org/wiki/API)
 
 ## Available Documentation
 * [**Quickstart**](quickstart.md)
