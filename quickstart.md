@@ -69,17 +69,17 @@ You can search for text that begins a string <http://dbgap-api.ncbi.nlm.nih.gov/
 
 You can also search for objects by one or more ids separated by a comma.
 This is most useful when you want to retrieve multiple objects in a single request and you already know their ids.
-For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005.v1.p1,phs000001.v3.p1> will retrieve two studies.
+For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005,phs000001> will retrieve two studies.
 
 # Retrieving metadata for one study
 
 You can access the metadata for a single study with a URL formed by adding the study's id after <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/>.
 
 For example:  
-<http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/phs000204.v1.p1>  
+<https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/phs000204>  
 **Note that this specific study id may not be accessible and is used only as an example.*
 
-Here the study's id is `phs000204.v1.p1`.
+Here the study's id is `phs000204`.
 This will return a JSON object representing the study.
 If you access this URL using a web browser, the server will detect that and give you a nicely formatted HTML page with the JSON on it.
 Using a GET request from a program will still return the JSON.
