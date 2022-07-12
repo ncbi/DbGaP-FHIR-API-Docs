@@ -39,9 +39,9 @@ Each entry will have 3 fields:
 Rather than retrieving all studies, you can get a subset by including search parameters.
 The list of available search parameters is available at <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/metadata>. 
   
-JSONPath notation to locate ResearchStudy search parameters from the metadata:  
-```
-$.rest.[resource[?(@.type=='ResearchStudy')]].searchParam
+You can find ResearchStudy search parameters at the [JSONPath](https://goessner.net/articles/JsonPath/)  
+```jsonpath
+$.rest[?(@.mode=='server')].resource[?(@.type=='ResearchStudy')].searchParam
 ``` 
 
 A more human-readable version is in the official documents <https://www.hl7.org/fhir/researchstudy.html#search>.
