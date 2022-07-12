@@ -93,7 +93,9 @@ Using a GET request from a program will still return the JSON.
 ## The `extension` fields
 
 We make heavy use of the `extension` field to model things not available in the standard FHIR specification.
-Line 10 holds the first occurrence of an extension in the example.
+Line 10 <!-- TODO: FHIR-1300 Fix the line references when you update the image 
+--> holds the 
+first occurrence of an extension in the example.
 Each extension has a URL that links to a machine-readable description of that field called a StructureDefinition.
 The URLs are named to allow a human to guess their semantics.
 The names are separated by the hyphen character (-) into fields and subfields.
@@ -103,7 +105,9 @@ For example, line 13 has a URL that shows it is the ReleaseDate field and its va
 
 ## Codeable Concepts
 
-Many values are codes within a system. For example, line 19 says "`valueCoding`" indicating that its value comes from a coding system. These have several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
+Many values are codes within a system. For example, line 19 says 
+"`valueCoding`" indicating that its value comes from a code system. These have 
+several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
 
 * * * * *
 
