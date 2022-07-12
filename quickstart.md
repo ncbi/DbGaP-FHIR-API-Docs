@@ -4,6 +4,8 @@ The dbGaP FHIR API is available at [http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](h
 
 # Retrieving all studies
 
+We model study metadata using FHIR ResearchStudy objects. The full specification is at <https://www.hl7.org/fhir/researchstudy.html>
+
 To retrieve all the studies we have stored, you would start with the URL:
 
 <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy>
@@ -84,7 +86,7 @@ This will return a JSON object representing the study.
 If you access this URL using a web browser, the server will detect that and give you a nicely formatted HTML page with the JSON on it.
 Using a GET request from a program will still return the JSON.
 
-**Result of retrieving one study in a web browser**
+## Result of retrieving one study in a web browser
 
 ![The result for one study displayed in a browser](img/one_study_result_in_browser.png "The result for one study displayed in a browser")
 
