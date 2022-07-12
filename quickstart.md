@@ -71,7 +71,8 @@ You can search for text that begins a string <http://dbgap-api.ncbi.nlm.nih.gov/
 ### Ids
 
 You can also search for objects by one or more ids separated by a comma.
-This is most useful when you want to retrieve multiple objects in a single request and you already know their ids.
+This is most useful when you want to retrieve multiple objects in a single
+request, and you already know their ids.
 For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005,phs000001> will retrieve two studies.
 
 # Retrieving metadata for one study
