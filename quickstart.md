@@ -4,6 +4,8 @@ The dbGaP FHIR API is available at [http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](h
 
 # Retrieving all studies
 
+We model study metadata using FHIR ResearchStudy objects. The full specification is at <https://www.hl7.org/fhir/researchstudy.html>
+
 To retrieve all the studies we have stored, you would start with the URL:
 
 <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy>
@@ -14,17 +16,17 @@ You can change the number of studies returned for each request by appending the 
 For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_count=2> will only return the first two studies on the first page.
 In the following, we will assume you've left the count at the default value of 100.
 
-**First 100 studies**
+## First 100 studies
 
 ![Result of getting all ResearchStudy objects in a browser](img/all_studies_result_in_browser.png "Result of getting all ResearchStudy objects in a browser")
 
-### Next and previous
+## Next and previous
 
 You can get the next 100 studies by accessing the URL (line 13) in the object under the link field (line 8) which is labeled with the relation "next" (line 12).
 This "next" link will only be present if there were more than 100 studies in the result.
 If this is not the first page of studies in a result, there will be a link with the relation "previous" that goes to the previous 100 studies.
 
-### Entries
+## Entries
 
 All 100 studies can be found under the `entry` field. 
 Each entry will have 3 fields:  
@@ -37,13 +39,14 @@ Each entry will have 3 fields:
 Rather than retrieving all studies, you can get a subset by including search parameters.
 The list of available search parameters is available at <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/metadata>. 
   
-JSONPath notation to locate ResearchStudy search parameters from the metadata:  
-```
-$.rest.[resource[?(@.type=='ResearchStudy')]].searchParam
+You can find ResearchStudy search parameters at the [JSONPath](https://goessner.net/articles/JsonPath/)  
+```jsonpath
+$.rest[?(@.mode=='server')].resource[?(@.type=='ResearchStudy')].searchParam
 ``` 
 
 A more human-readable version is in the official documents <https://www.hl7.org/fhir/researchstudy.html#search>.
-This has only the minimum search parameters required by the standard and omits parameters unique to the dbGaP API.
+This has only the search parameters defined by the standard and omits 
+parameters unique to the dbGaP API.
 
 ### Prefix
 
@@ -68,30 +71,33 @@ You can search for text that begins a string <http://dbgap-api.ncbi.nlm.nih.gov/
 ### Ids
 
 You can also search for objects by one or more ids separated by a comma.
-This is most useful when you want to retrieve multiple objects in a single request and you already know their ids.
-For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005.v1.p1,phs000001.v3.p1> will retrieve two studies.
+This is most useful when you want to retrieve multiple objects in a single
+request, and you already know their ids.
+For example, <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_id=phs000005,phs000001> will retrieve two studies.
 
 # Retrieving metadata for one study
 
 You can access the metadata for a single study with a URL formed by adding the study's id after <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/>.
 
 For example:  
-<http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/phs000204.v1.p1>  
+<https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/phs000204>  
 **Note that this specific study id may not be accessible and is used only as an example.*
 
-Here the study's id is `phs000204.v1.p1`.
+Here the study's id is `phs000204`.
 This will return a JSON object representing the study.
 If you access this URL using a web browser, the server will detect that and give you a nicely formatted HTML page with the JSON on it.
 Using a GET request from a program will still return the JSON.
 
-**Result of retrieving one study in a web browser**
+## Result of retrieving one study in a web browser
 
 ![The result for one study displayed in a browser](img/one_study_result_in_browser.png "The result for one study displayed in a browser")
 
 ## The `extension` fields
 
 We make heavy use of the `extension` field to model things not available in the standard FHIR specification.
-Line 10 holds the first occurrence of an extension in the example.
+Line 10 <!-- TODO: FHIR-1300 Fix the line references when you update the image 
+--> holds the 
+first occurrence of an extension in the example.
 Each extension has a URL that links to a machine-readable description of that field called a StructureDefinition.
 The URLs are named to allow a human to guess their semantics.
 The names are separated by the hyphen character (-) into fields and subfields.
@@ -101,7 +107,9 @@ For example, line 13 has a URL that shows it is the ReleaseDate field and its va
 
 ## Codeable Concepts
 
-Many values are codes within a system. For example, line 19 says "`valueCoding`" indicating that its value comes from a coding system. These have several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
+Many values are codes within a system. For example, line 19 says 
+"`valueCoding`" indicating that its value comes from a code system. These have 
+several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
 
 * * * * *
 
