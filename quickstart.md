@@ -16,17 +16,17 @@ You can change the number of studies returned for each request by appending the 
 For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_count=2> will only return the first two studies on the first page.
 In the following, we will assume you've left the count at the default value of 100.
 
-**First 100 studies**
+## First 100 studies
 
 ![Result of getting all ResearchStudy objects in a browser](img/all_studies_result_in_browser.png "Result of getting all ResearchStudy objects in a browser")
 
-### Next and previous
+## Next and previous
 
 You can get the next 100 studies by accessing the URL (line 13) in the object under the link field (line 8) which is labeled with the relation "next" (line 12).
 This "next" link will only be present if there were more than 100 studies in the result.
 If this is not the first page of studies in a result, there will be a link with the relation "previous" that goes to the previous 100 studies.
 
-### Entries
+## Entries
 
 All 100 studies can be found under the `entry` field. 
 Each entry will have 3 fields:  
