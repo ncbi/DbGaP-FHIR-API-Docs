@@ -45,7 +45,8 @@ $.rest[?(@.mode=='server')].resource[?(@.type=='ResearchStudy')].searchParam
 ``` 
 
 A more human-readable version is in the official documents <https://www.hl7.org/fhir/researchstudy.html#search>.
-This has only the minimum search parameters required by the standard and omits parameters unique to the dbGaP API.
+This has only the search parameters defined by the standard and omits 
+parameters unique to the dbGaP API.
 
 ### Prefix
 
