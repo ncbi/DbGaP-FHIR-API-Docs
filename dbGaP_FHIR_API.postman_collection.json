@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "ee7ed158-649e-4f9e-b566-79cecbc3c65a",
+		"name": "dbGaP FHIR API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ResearchStudy",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all limit results",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}?_count=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							],
+							"query": [
+								{
+									"key": "_count",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by title prefix",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}?title=ADGC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "ADGC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by title substring",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}?title:contains=Wide",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							],
+							"query": [
+								{
+									"key": "title:contains",
+									"value": "Wide"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by keyword token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}?keyword:text=Dementia",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							],
+							"query": [
+								{
+									"key": "keyword:text",
+									"value": "Dementia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}/phs000003",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}",
+								"phs000003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "metadata search parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Print resource search parameters to console\", () => {",
+									"    var resources = pm.response.json().rest[0].resource;",
+									"    var myResource = resources.find(obj => {",
+									"        return obj.type === pm.variables.get('resourceName');",
+									"    })",
+									"    console.log(myResource.searchParam);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/metadata",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.variables.set('resourceName','ResearchStudy');"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all limit results",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}?_count=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							],
+							"query": [
+								{
+									"key": "_count",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "metadata search parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Print resource search parameters to console\", () => {",
+									"    var resources = pm.response.json().rest[0].resource;",
+									"    var myResource = resources.find(obj => {",
+									"        return obj.type === pm.variables.get('resourceName');",
+									"    })",
+									"    console.log(myResource.searchParam);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/metadata",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.variables.set('resourceName','Patient');"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Observation",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all limit results",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{resourceName}}?_count=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{resourceName}}"
+							],
+							"query": [
+								{
+									"key": "_count",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "metadata search parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Print resource search parameters to console\", () => {",
+									"    var resources = pm.response.json().rest[0].resource;",
+									"    var myResource = resources.find(obj => {",
+									"        return obj.type === pm.variables.get('resourceName');",
+									"    })",
+									"    console.log(myResource.searchParam);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/metadata",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.variables.set('resourceName','Observation');"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({key: 'Accept', value: 'application/fhir+json'});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1",
+			"type": "default"
+		}
+	]
+}
