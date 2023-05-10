@@ -1,11 +1,10 @@
 # DbGaP FHIR API Docs
 
-This is the documentation repository for the [dbGaP FHIR API](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1).  
+This is the documentation repository for the [dbGaP](https://www.ncbi.nlm.nih.gov/gap/) [FHIR](https://hl7.org/fhir/) API. ([API base URL](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1))
 
-[dbGaP is the Database of Genotypes and Phenotypes.](https://www.ncbi.nlm.nih.gov/gap/)<br/>
-[FHIR is HL7's REST API standard for electronic medical data.](https://hl7.org/fhir/)  
+dbGaP is the Database of Genotypes and Phenotypes.<br/>
+FHIR is HL7's REST API standard for electronic medical data.  
 
-## Available Documentation
 * [**Quickstart**](quickstart.md)
 * [**Mapping dbGaP concepts to FHIR concepts**](https://dbgap-api-preview.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
 
