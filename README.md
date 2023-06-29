@@ -40,6 +40,21 @@ and neglected.
 The CSV download for the interactive concept mapping does
 not handle quoting correctly. You'll need to hand-edit it.
 
+If you have a query that returns after 20 seconds with an error that looks
+like the below:
+```json
+{
+	"error": {
+		"status": 500,
+		"message": "error forwarding request",
+		"api-key": "192.168.0.1"
+	}
+}
+```
+Then you probably hit the 20-second timeout imposed by our network
+infrastructure. Removing sorting, simplifying your query, or including fewer
+sub-queries in a batch can sometimes help.
+
 ## Contact
 If, despite knowing it is nearly equivalent
 to shouting into the void (see above), you still wish to contact
