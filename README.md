@@ -7,6 +7,21 @@ FHIR is HL7's REST API standard for electronic medical data.
 
 * [**Quickstart**](quickstart.md)
 * [**Mapping dbGaP concepts to FHIR concepts**](https://dbgap-api-preview.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
+* **Notebooks** (Coming soon)
+
+## Prerequisites
+
+You should already have a basic understanding of FHIR - especially
+before working through the Notebooks. The [FHIR Exercises
+repo](https://github.com/NIH-ODSS/fhir-exercises) from ODSS worked
+well for our team in the version they had when we used them. (However,
+by linking to them we do not imply that they are still good or that
+NCBI or the United States Federal Government endorses them. Use at
+your own risk. The same goes for all links on this page.)
+
+For the Notebooks, you should also understand [how Notebooks
+work](https://jupyter-notebook.readthedocs.io/) and [Pandas
+dataframes](https://pandas.pydata.org/docs/user_guide/dsintro.html#dataframe).
 
 ## Maintenance
 The team is focused on adding features and data.
@@ -24,6 +39,21 @@ and neglected.
 
 The CSV download for the interactive concept mapping does
 not handle quoting correctly. You'll need to hand-edit it.
+
+If you have a query that returns after 20 seconds with an error that looks
+like the below:
+```json
+{
+	"error": {
+		"status": 500,
+		"message": "error forwarding request",
+		"api-key": "192.168.0.1"
+	}
+}
+```
+Then you probably hit the 20-second timeout imposed by our network
+infrastructure. Removing sorting, simplifying your query, or including fewer
+sub-queries in a batch can sometimes help.
 
 ## Contact
 If, despite knowing it is nearly equivalent
