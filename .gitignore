@@ -13,3 +13,4 @@ __pycache__/
 
 # OS X
 .DS_Store
+jupyter/.DS_Store
