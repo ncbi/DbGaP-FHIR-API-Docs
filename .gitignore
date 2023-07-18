@@ -1,0 +1,16 @@
+# query results
+jupyter/results/*
+jupyter/logs/*
+
+# ipython/jupyter
+.ipynb_checkpoints
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# OS X
+.DS_Store
+jupyter/.DS_Store
