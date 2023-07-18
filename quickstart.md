@@ -3,10 +3,11 @@
 The dbGaP FHIR API is available at [http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1). It is a standard FHIR API. The documentation for FHIR is at <https://www.hl7.org/fhir/>. This guide is just a quick-start. We have documented how dbGaP concepts map to FHIR resources at [https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive](https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive).
 
 ## Follow Along with Postman
-Postman is an API testing application you can [download for free](https://www.postman.com/downloads/).  
-You can follow along using the included [dbGaP_FHIR_API.postman_collection.json](dbGaP_FHIR_API.postman_collection.json)  
-[Instructions on how to use Postman](https://learning.postman.com/docs/getting-started/introduction/)  
-[Notes about dbGaP_FHIR_API.postman_collection.json](dbGaP_FHIR_API.postman_collection.json.md)
+Postman is an API testing application you can [download for free](https://www.postman.com/downloads/).
+You can follow along using the included [dbGaP_FHIR_API.postman_collection.json](postman/dbGaP_FHIR_API.postman_collection.json)
+
+* [Instructions on how to use Postman](https://learning.postman.com/docs/getting-started/introduction/)
+* [Notes about dbGaP_FHIR_API.postman_collection.json](postman/dbGaP_FHIR_API.postman_collection.json.md)
 
 # Retrieving all studies
 
