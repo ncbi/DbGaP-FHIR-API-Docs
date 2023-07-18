@@ -7,7 +7,7 @@ FHIR is HL7's REST API standard for electronic medical data.
 
 * [**Quickstart**](quickstart.md)
 * [**Mapping dbGaP concepts to FHIR concepts**](https://dbgap-api-preview.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
-* **Notebooks** (Coming soon)
+* [**Notebooks**](jupyter)
 
 ## Prerequisites
 
