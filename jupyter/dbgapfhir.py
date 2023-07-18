@@ -11,7 +11,7 @@ import pprint
 
 class dbgapfhir:
 
-    def __init__(self, fhir_server, verify_ssl = True, api_key=None, passport=None, debug=False):
+    def __init__(self, fhir_server, verify_ssl = True, api_key=None, passport=None, debug=False, show_stats=True):
         
         # Optional: Turn off SSL verification. Useful when dealing with a corporate proxy with self-signed certificates.
         # This should be set to True unless you actually see certificate errors.
@@ -23,6 +23,7 @@ class dbgapfhir:
         self.api_key = api_key
         self.passport = passport
         self.debug = debug
+        self.show_stats = show_stats
 
         # We make a requests.Session to ensure consistent headers/cookie across all the requests we make
         self.s = requests.Session()
@@ -88,8 +89,11 @@ class dbgapfhir:
 
     # Run a query, and get the whole set of results back as a list of resources
     # Set limit to True if you want  to the first page if you like
-    def runQuery(self, query, limit=None, debug=False, sleep=None, show_stats=True):
+    def run_query(self, query, limit=None, debug=False, sleep=None, show_stats=None):
     
+        if show_stats == None:
+            show_stats = self.show_stats
+            
         t_start = time.perf_counter()
 
         self.bytes_retrieved = 0
