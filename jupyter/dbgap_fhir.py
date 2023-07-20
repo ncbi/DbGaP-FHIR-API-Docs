@@ -9,7 +9,7 @@ from datetime import datetime
 import time
 import pprint
 
-class dbgapfhir:
+class DbGapFHIR:
 
     def __init__(self, fhir_server, verify_ssl = True, api_key=None, passport=None, debug=False, show_stats=True):
         
@@ -113,12 +113,14 @@ class dbgapfhir:
         # if it's just a summary
         if 'meta' in first_bundle and 'tag' in first_bundle['meta'] and first_bundle['meta']['tag'][0]['code'] == 'SUBSETTED':
                 subset = True
+                all_bundles = [first_bundle]
         elif limit == None:
             all_bundles = self.resolve_pages(first_bundle, debug, sleep)
         else:
             all_bundles = [first_bundle]
 
         t_end = time.perf_counter()
+        pagecount = len(all_bundles)
         
         resources = []
         if subset:
@@ -133,46 +135,10 @@ class dbgapfhir:
         if show_stats:
             print(f"Total  Resources: {len(resources)}")
             print(f"Total  Bytes: {self.bytes_retrieved}")
+            print(f"Total  Pages: {pagecount}")
             print(f"Time elapsed {elapsed:0.4f} seconds")
         return resources
         
-    # Run a query, and get the whole set of results back as a list of resources
-    # Set limit to True if you want  to the first page if you like
-    def postQuery(self, query, limit=None, debug=False, sleep=None, show_stats=True):
-    
-        t_start = time.perf_counter()
-
-        self.bytes_retrieved = 0
-        
-        fhir_query = f"{self.fhir_server}/{query}"
-        if self.api_key != None:
-            fhir_query += f"&api_key={self.api_key}"
-        if debug:
-            print(fhir_query)
-        r = self.s.post(fhir_query)
-        first_bundle = r.json()
-        self.bytes_retrieved += len(r.content)
-        if debug:
-            print(json.dumps(first_bundle, indent=3))
-            print('got response')
-        if limit == None:
-            all_bundles = self.resolve_pages(first_bundle, debug, sleep)
-        else:
-            all_bundles = [first_bundle]
-
-        t_end = time.perf_counter()
-        
-        resources = []
-        for bundle in all_bundles:
-            if 'entry' in bundle:
-                resources.extend([entry['resource']  for entry in bundle['entry']])
-        
-        elapsed = t_end - t_start
-        if show_stats:
-            print(f"Total  Resources: {len(resources)}")
-            print(f"Total  Bytes: {self.bytes_retrieved}")
-            print(f"Time elapsed {elapsed:0.4f} seconds")
-        return resources
         
     def __add_passport(self, passport=None):
         '''Adds Passport/TST to session header
