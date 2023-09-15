@@ -6,8 +6,6 @@ dbGaP is the Database of Genotypes and Phenotypes.<br/>
 FHIR is HL7's REST API standard for electronic medical data.
 
 - [**Quickstart**](quickstart.md)
-- [**Mapping dbGaP concepts to FHIR concepts**](https://dbgap-api-preview.ncbi.nlm.nih.gov/fhir-mapping/interactive/)
-  - Note: this mapping will be retired and replaced by alternate documentation in future
 - [**Notebooks**](jupyter)
 
 ## Prerequisites
@@ -40,8 +38,7 @@ ever come.
   If you report a bug or request a feature, it will probably be overlooked
   and neglected.
 
-- The CSV download for the interactive concept mapping does
-  not handle quoting correctly. You'll need to hand-edit it.
+- There is no documentation showing how the dbGaP submitted resources map to FHIR resources. 
 
 - If you have a query that returns after 20 seconds with an error that looks
   like the below:
