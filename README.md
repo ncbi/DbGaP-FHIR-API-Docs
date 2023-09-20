@@ -150,6 +150,10 @@ ever come.
   separately from non-integer values. So, "1.5, 1, 2.5, 2, 3.5" could be
   ordered as "1, 2, 1.5, 2.5, 3.5" or "1.5, 2.5, 3.5, 1, 2".
 
+- Some codes used in Observation and other resources do not match the
+  [FHIR regular expression](https://www.hl7.org/fhir/datatypes.html#code). In
+  particular, some have multiple spaces in a row.
+
 ## Contact
 
 If, despite knowing it is nearly equivalent
