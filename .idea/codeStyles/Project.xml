@@ -9,7 +9,7 @@
     </ScalaCodeStyleSettings>
     <codeStyleSettings language="Markdown">
       <option name="RIGHT_MARGIN" value="80" />
-      <option name="WRAP_ON_TYPING" value="1" />
+      <option name="WRAP_ON_TYPING" value="0" />
       <option name="SOFT_MARGINS" value="80" />
     </codeStyleSettings>
   </code_scheme>
