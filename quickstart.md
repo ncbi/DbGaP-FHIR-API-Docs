@@ -1,13 +1,14 @@
 # Location
 
-The dbGaP FHIR API is available at [http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1). It is a standard FHIR API. The documentation for FHIR is at <https://www.hl7.org/fhir/>. This guide is just a quick-start. We have documented how dbGaP concepts map to FHIR resources at [https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive](https://dbgap-api.ncbi.nlm.nih.gov/fhir-mapping/interactive).
+The dbGaP FHIR API is available at [http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1). It is a standard FHIR API. The documentation for FHIR is at <https://www.hl7.org/fhir/>. This guide is just a quick-start.
 
 ## Follow Along with Postman
+
 Postman is an API testing application you can [download for free](https://www.postman.com/downloads/).
 You can follow along using the included [dbGaP_FHIR_API.postman_collection.json](postman/dbGaP_FHIR_API.postman_collection.json)
 
-* [Instructions on how to use Postman](https://learning.postman.com/docs/getting-started/introduction/)
-* [Notes about dbGaP_FHIR_API.postman_collection.json](postman/dbGaP_FHIR_API.postman_collection.json.md)
+- [Instructions on how to use Postman](https://learning.postman.com/docs/getting-started/introduction/)
+- [Notes about dbGaP_FHIR_API.postman_collection.json](postman/dbGaP_FHIR_API.postman_collection.json.md)
 
 # Retrieving all studies
 
@@ -17,9 +18,9 @@ To retrieve all the studies we have stored, you would start with the URL:
 
 <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy>
 
-This will return a Bundle resource (you can see which type of resource it is by looking at the "resourceType" field) 
+This will return a Bundle resource (you can see which type of resource it is by looking at the "resourceType" field)
 which contains an array of [FHIR ResearchStudy objects](https://www.hl7.org/fhir/researchstudy.html).
-You can change the number of studies returned for each request by appending the parameter "_count=" followed by an integer.
+You can change the number of studies returned for each request by appending the parameter "\_count=" followed by an integer.
 For example, <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy?_count=2> will only return the first two studies on the first page.
 In the following, we will assume you've left the count at the default value of 100.
 
@@ -35,8 +36,9 @@ If this is not the first page of studies in a result, there will be a link with 
 
 ## Entries
 
-All 100 studies can be found under the `entry` field. 
-Each entry will have 3 fields:  
+All 100 studies can be found under the `entry` field.
+Each entry will have 3 fields:
+
 1. `fullURL` - a link directly to that study object.
 2. `resource` - the object you'd find at that `fullURL` link.
 3. `search` - parameters about the search that produced this entry.
@@ -44,15 +46,16 @@ Each entry will have 3 fields:
 # Retrieving studies matching a criterion (searching)
 
 Rather than retrieving all studies, you can get a subset by including search parameters.
-The list of available search parameters is available at <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/metadata>. 
-  
-You can find ResearchStudy search parameters at the [JSONPath](https://goessner.net/articles/JsonPath/)  
+The list of available search parameters is available at <http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/metadata>.
+
+You can find ResearchStudy search parameters at the [JSONPath](https://goessner.net/articles/JsonPath/)
+
 ```jsonpath
 $.rest[?(@.mode=='server')].resource[?(@.type=='ResearchStudy')].searchParam
-``` 
+```
 
 A more human-readable version is in the official documents <https://www.hl7.org/fhir/researchstudy.html#search>.
-This has only the search parameters defined by the standard and omits 
+This has only the search parameters defined by the standard and omits
 parameters unique to the dbGaP API.
 
 ### Prefix
@@ -88,7 +91,7 @@ You can access the metadata for a single study with a URL formed by adding the s
 
 For example:  
 <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/ResearchStudy/phs000204>  
-**Note that this specific study id may not be accessible and is used only as an example.*
+\*_Note that this specific study id may not be accessible and is used only as an example._
 
 Here the study's id is `phs000204`.
 This will return a JSON object representing the study.
@@ -102,8 +105,8 @@ Using a GET request from a program will still return the JSON.
 ## The `extension` fields
 
 We make heavy use of the `extension` field to model things not available in the standard FHIR specification.
-Line 10 <!-- TODO: FHIR-1300 Fix the line references when you update the image 
---> holds the 
+Line 10 <!-- TODO: FHIR-1300 Fix the line references when you update the image
+--> holds the
 first occurrence of an extension in the example.
 Each extension has a URL that links to a machine-readable description of that field called a StructureDefinition.
 The URLs are named to allow a human to guess their semantics.
@@ -114,11 +117,11 @@ For example, line 13 has a URL that shows it is the ReleaseDate field and its va
 
 ## Codeable Concepts
 
-Many values are codes within a system. For example, line 19 says 
-"`valueCoding`" indicating that its value comes from a code system. These have 
+Many values are codes within a system. For example, line 19 says
+"`valueCoding`" indicating that its value comes from a code system. These have
 several fields (FHIR has [more documentation on Coding](https://www.hl7.org/fhir/datatypes.html#Coding)). "`system`" is a URL that identifies which coding system is being used. "`code`" is a code within that system. In this example, the system is <https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent> and the code with the system is "phs000204.v1.p1 - 1". There is also a display value ("GRU") for quick-reference or to use in displaying this code to a human user. If you look at the [CodeSystem object](https://dbgap-api.ncbi.nlm.nih.gov/fhir/x1/CodeSystem/ResearchStudy-StudyConsents-StudyConsent), and find the code "phs000204.v1.p1 - 1", you can see a slightly expanded definition for this field, "General Research Use (GRU)".
 
-* * * * *
+---
 
 # Other objects
 
@@ -126,5 +129,5 @@ Besides ResearchStudy, the server also contains Patient and Observation data. Th
 
 For more information about Patient and Observation resources, please visit the FHIR website:
 
--   [Patient](https://www.hl7.org/fhir/Patient.html)
--   [Observation](https://www.hl7.org/fhir/observation.html)
+- [Patient](https://www.hl7.org/fhir/Patient.html)
+- [Observation](https://www.hl7.org/fhir/observation.html)
