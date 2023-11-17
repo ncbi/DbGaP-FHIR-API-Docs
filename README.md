@@ -22,11 +22,7 @@ dataframes](https://pandas.pydata.org/docs/user_guide/dsintro.html#dataframe).
 
 ## Issues
 
-The CSV download for the interactive concept mapping does
-not handle quoting correctly. You'll need to hand-edit it.
-
-If you have a query that returns after 20 seconds with an error that looks
-like the below:
+If you have a query that returns after 20 seconds with an error like the following:
 ```json
 {
 	"error": {
@@ -36,8 +32,7 @@ like the below:
 	}
 }
 ```
-Then you probably hit the 20-second timeout imposed by our network
-infrastructure. Removing sorting, simplifying your query, or including fewer
+Then you probably hit a 20-second timeout. Removing sorting, simplifying your query, or including fewer
 sub-queries in a batch can sometimes help.
 
 For other issues please see the Issues list in this GitHub repository.
