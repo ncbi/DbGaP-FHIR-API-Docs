@@ -13,8 +13,9 @@ FHIR is HL7's REST API standard for transmission of electronic health record dat
 ## Prerequisites
 
 You should already have a basic understanding of FHIR - especially
-before working through the Notebooks. The notebooks are based on the[FHIR Exercises
-repo](https://github.com/NIH-ODSS/fhir-exercises) from the NIH Office of Data Sharing Strategy (ODSS).
+before working through the Notebooks. The notebooks are based on the
+[FHIR Exercises repo](https://github.com/NIH-ODSS/fhir-exercises)
+from the NIH Office of Data Sharing Strategy (ODSS).
 
 For the Notebooks, you should also understand [how Notebooks
 work](https://jupyter-notebook.readthedocs.io/) and [Pandas
