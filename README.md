@@ -36,8 +36,21 @@ If you have a query that returns after 20 seconds with an error like the followi
 Then you probably hit a 20-second timeout. Removing sorting, simplifying your query, or including fewer
 sub-queries in a batch can sometimes help.
 
-For other issues please see [the Issues list in this GitHub repository](https://github.com/ncbi/DbGaP-FHIR-API-Docs/issues).
+For other issues please see [the Issues list in this GitHub repository][issues].
+
+## Privacy
+The example code in this repository does not collect user data or send it to
+NCBI. However, using the code to access our FHIR servers will send data to
+NCBI. To learn more about how we handle that data, see the ["NCBI Website
+and Data Usage Policies and Disclaimers"][policies] page.
 
 ## Contact 
-The dbGaP FHIR API is provided by NCBI. Please [contact](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=email&filter=from&from=login) us with any questions.
-dbGaP FHIR is under active development; suggestions for features and data are welcome. 
+The dbGaP FHIR API is provided by NCBI. Please [contact us][contact] with any
+questions.
+
+dbGaP FHIR is under active development; suggestions for features and data are
+welcome.
+
+[issues]: https://github.com/ncbi/DbGaP-FHIR-API-Docs/issues
+[policies]: https://www.ncbi.nlm.nih.gov/home/about/policies/
+[contact]: https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=email&filter=from&from=login
