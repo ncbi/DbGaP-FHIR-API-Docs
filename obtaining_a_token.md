@@ -11,7 +11,7 @@ submitted by an investigator. You, the user, may be that investigator, or have b
 
 In a web browser, open the following link to open the Power User Portal
 
-https://dbgap.ncbi.nlm.nih.gov/cda/dbGaPLogin/
+https://www.ncbi.nlm.nih.gov/gap/power-user-portal/
 
 <img src="./img/token-choose.jpg" alt="The main power-user portal page. It has options for obtaining a RAS passport or a Task-Specific Token" style="width:100%;height:auto;" />You may request a passport or a task specific token. Each may be used as follows:
 
