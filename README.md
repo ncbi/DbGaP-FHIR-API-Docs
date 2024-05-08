@@ -1,3 +1,9 @@
+
+# <span style="color:red">Downtime on 8 May 2024</span>
+<span style="color:red">
+There may be some downtime on 8 May 2024 from 11:45 AM to 1 PM EDT as we upgrade some FHIR API hardware.
+</span>
+
 # DbGaP FHIR API Docs
 
 This is the documentation repository for the [dbGaP](https://www.ncbi.nlm.nih.gov/gap/) [FHIR](https://hl7.org/fhir/) API. ([API base URL](http://dbgap-api.ncbi.nlm.nih.gov/fhir/x1))
