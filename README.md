@@ -1,6 +1,6 @@
 
 # ⚠🔥 Downtime on 8 May 2024 🔥⚠
-⚠🔥There will probably be some downtime on 8 May 2024 from 11:45 AM to 1 PM EDT as we upgrade some FHIR API hardware.🔥⚠
+⚠🔥There will probably be some downtime on 8 May 2024 from 11:45 AM to 2 PM EDT as we upgrade some FHIR API hardware.🔥⚠
 
 # DbGaP FHIR API Docs
 
