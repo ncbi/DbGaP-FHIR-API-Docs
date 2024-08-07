@@ -1,0 +1,15 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.2.0
+    hooks:
+    -   id: black-jupyter
+        args: ['--line-length','80']
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: 'v4.0.0-alpha.8'
+    hooks:
+      - id: prettier
+        types_or: [java, xml, javascript, ts, html, css, markdown]
+        additional_dependencies:
+          - prettier@2.8.8
+          - "prettier-plugin-java@1.6.1"
+          - "@prettier/plugin-xml@2.2.0"
