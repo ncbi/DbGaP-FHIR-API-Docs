@@ -4,11 +4,7 @@ This pilot directory will have the sample code to access the dbGaP pilot FHIR se
 
 1. **FHIR API service for ICAC/URECA** at [https://dbgap-api.ncbi.nlm.nih.gov/fhir-jpa-pilot1/x1/metadata](https://dbgap-api.ncbi.nlm.nih.gov/fhir-jpa-pilot1/x1/metadata) for dbGaP datasets "Whole Genome Sequencing in the Inner City Asthma Consortium (ICAC) Cohorts".
 
-ul li:before
-{
-    content: '\2705'; /* White Heavy Check Mark */
-    margin: 0 1em;
-}
+
    ✅ Please see [phs002921](https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs002921.v2.p1) for study details.
    ✅ You need NIH Data Access approval to access this study. Please follow [instructions](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) to request access.
    ✅ Once your Data Access Request (DAR) is approved, you can access this study's data both from the dbGaP website and from this pilot FHIR API server.
