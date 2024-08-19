@@ -1,11 +1,3 @@
-<style>
-ul li:before
-{
-    content: '\2705'; /* White Heavy Check Mark */
-    margin: 0 1em;
-}
-</style>
-
 # OVERVIEW
 
 This pilot directory will have the sample code to access the dbGaP pilot FHIR servers. There are 3 pilot FHIR servers.
