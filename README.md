@@ -8,6 +8,7 @@ FHIR is HL7's REST API standard for transmission of electronic health record dat
 - [**Quickstart**](quickstart.md)
 - [**Obtaining a Task-Specific Token for Controlled Data**](obtaining_a_token.md)
 - [**Notebooks**](jupyter)
+- [**2024 Pilot Server for URECA(phs002921) and UDN(phs001232)**](pilot/README.md)
 
 ## Prerequisites
 
