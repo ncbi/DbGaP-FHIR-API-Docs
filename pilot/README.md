@@ -22,4 +22,4 @@ This pilot directory will have the sample code to access the dbGaP pilot FHIR se
 4. **Open-access test FHIR server** for those without Data Access approval but who would like to explore how to programmatically access dbGaP data with the FHIR API. This test server with synthetic data is at [https://dbgap-api.ncbi.nlm.nih.gov/fhir-jpa-pilot/x1/metadata](https://dbgap-api.ncbi.nlm.nih.gov/fhir-jpa-pilot/x1/metadata).
 
 
-> 📌 **Note:** Please note that if you are using CAVATICA to access, make sure to enable "Allow Network Access" in the Project setting.
+ 📌 **Note:** Please note that if you are using CAVATICA to access, make sure to enable "Allow Network Access" in the Project setting.
