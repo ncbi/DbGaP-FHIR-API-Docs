@@ -4,6 +4,10 @@
 1. Each resource in column-ResourceType links to HL7 official resource page for quick reference. For example, Patient goes to URL: [https://hl7.org/fhir/patient.html](https://hl7.org/fhir/patient.html)
 2. The FHIR resources chosen to represent dbGaP dataset in our pilot server are the results of initial exploration. We greatly welcome your feedback. We are committed to work with our users and the NCPI FHIR community(https://nih-ncpi.github.io/ncpi-fhir-ig/) to improve how we deliver dbGaP data on FHIR API.
 
+
+![Pilot dbGaP FHIR Resource Relationship Diagram](img/pilot-resource-relation.JPG)
+
+
 ## dbGaP FHIR Pilot Server Resource List
     
 | **ResourceType** | **Example URL** | **dbGaP FHIR Implementation Comments** |
