@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Strict mode
+set -euo pipefail
+IFS=$'\n\t'
+
+script_path="$(readlink -f "${BASH_SOURCE[0]}")"
+script_dir="$(dirname "$script_path")"
+pants_path="$script_dir/bin/pants/pants"
+
+cert_path=/etc/pki/tls/certs/ca-bundle.crt
+if [ -e "$cert_path" ]; then
+    SSL_CERT_FILE=/etc/pki/tls/certs/ca-bundle.crt "$pants_path" "$@"
+else
+    echo "Error: certificate bundle is not at $cert_path" >&2
+    echo "Attempting to run pants without it" >&2
+    "$pants_path" "$@"
+fi
+

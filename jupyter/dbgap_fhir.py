@@ -2,12 +2,8 @@ import os
 import sys
 import json
 import requests
-import pandas as pd
-import numpy as np
 from pathlib import Path
-from datetime import datetime
 import time
-import pprint
 
 
 class DbGapFHIR:

@@ -1,0 +1,53 @@
+[GLOBAL]
+pants_version = "2.23.0"
+
+pythonpath = [
+    "%(buildroot)s/build_support/pants/pants-plugins",
+  ]
+
+backend_packages = [
+    'pants.backend.python',
+    'pants.backend.python.lint.flake8',
+    'pants.backend.python.typecheck.mypy',
+    'pants.backend.python.mixed_interpreter_constraints',
+  ]
+
+# Path patterns to ignore for filesystem operations on top of the builtin patterns.
+pants_ignore.add = [
+    'cpp',
+    've',
+    '.ve',
+    'ncbi-toolkit-root',
+  ]
+
+#[python-bootstrap]
+#search_path = [
+#    "<PATH>",
+#    "%(buildroot)s/bin/pypy/bin",
+#  ]
+
+[python]
+interpreter_constraints = ["CPython>=3.11"]
+
+[python-repos]
+indexes= [
+    'https://artifactory.ncbi.nlm.nih.gov/artifactory/api/pypi/python-virtual-repo/simple/']
+
+[mypy]
+config = "build_support/pants/mypy.ini"
+interpreter_constraints = ["CPython>=3.11"]
+
+[flake8]
+config = "build_support/pants/flake8.ini"
+
+[coverage-py]
+config = "build_support/pants/coverage_py.ini"
+interpreter_constraints = ["CPython>=3.11"]
+report = [
+       "console",
+       "html",
+]
+
+[anonymous-telemetry]
+enabled=true
+repo_id="7f9f781c-2f0c-4a2e-b5bb-92b38713f564"
