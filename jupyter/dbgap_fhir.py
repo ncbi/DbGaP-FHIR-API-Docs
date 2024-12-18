@@ -89,7 +89,8 @@ class DbGapFHIR:
             self.bytes_retrieved += len(r.content)
             if "link" not in next_page:
                 print(json.dumps(next_page, indent=3))
-            nl = [link for link in next_page["link"] if l["relation"] == "next"]
+            nl = [link for link in next_page["link"] if link["relation"] ==
+                  "next"]
             if debug:
                 if len(nl) < 1:
                     print("Full last response")
@@ -106,7 +107,7 @@ class DbGapFHIR:
         self, query, limit=None, debug=False, sleep=None, show_stats=None
     ):
 
-        if show_stats == None:
+        if show_stats is None:
             show_stats = self.show_stats
 
         t_start = time.perf_counter()
@@ -115,7 +116,7 @@ class DbGapFHIR:
         subset = False
 
         fhir_query = f"{self.fhir_server}/{query}"
-        if self.api_key != None:
+        if self.api_key is not None:
             fhir_query += f"&api_key={self.api_key}"
         if debug:
             print(fhir_query)
@@ -133,7 +134,7 @@ class DbGapFHIR:
         ):
             subset = True
             all_bundles = [first_bundle]
-        elif limit == None:
+        elif limit is None:
             all_bundles = self.resolve_pages(first_bundle, debug, sleep)
         else:
             all_bundles = [first_bundle]
@@ -162,10 +163,10 @@ class DbGapFHIR:
 
     def __add_passport(self, passport=None):
         """Adds Passport/TST to session header"""
-        if passport == None:
+        if passport is None:
             passport = self.passport
 
-        if passport != None:
+        if passport is not None:
             full_key_path = os.path.expanduser(passport)
             file_content = ""
             if self.debug:
