@@ -63,12 +63,12 @@ class DbGapFHIR:
             print("Key error link/next_page")
             print(json.dumps(bundle, indent=3))
             raise
-        n = 1
+
         if next_page_link:
-            if sleep != None:
+            if sleep is not None:
                 time.sleep(sleep)
             fhir_query = next_page_link["url"]
-            if self.api_key != None:
+            if self.api_key is not None:
                 fhir_query += f"&api_key={self.api_key}"
             if debug:
                 print("_" * 80)
@@ -89,7 +89,7 @@ class DbGapFHIR:
             self.bytes_retrieved += len(r.content)
             if "link" not in next_page:
                 print(json.dumps(next_page, indent=3))
-            nl = [l for l in next_page["link"] if l["relation"] == "next"]
+            nl = [link for link in next_page["link"] if l["relation"] == "next"]
             if debug:
                 if len(nl) < 1:
                     print("Full last response")
