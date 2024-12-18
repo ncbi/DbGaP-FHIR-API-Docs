@@ -8,3 +8,9 @@ python_sources(
     sources = ["dbgap_fhir.py"],
     dependencies = [":dbgap_fhir_requirements"],
 )
+
+python_test(
+    name = "dbgap_fhir_test",
+    source = "dbgap_fhir_test.py",
+    dependencies = [":dbgap_fhir_src"],
+)
