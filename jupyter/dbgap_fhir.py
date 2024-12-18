@@ -3,6 +3,7 @@ import sys
 import json
 import requests
 import time
+import pandas as pd
 
 
 class DbGapFHIR:
@@ -89,8 +90,8 @@ class DbGapFHIR:
             self.bytes_retrieved += len(r.content)
             if "link" not in next_page:
                 print(json.dumps(next_page, indent=3))
-            nl = [link for link in next_page["link"] if link["relation"] ==
-                  "next"]
+            nl = [link for link in next_page["link"] if
+                  link["relation"] == "next"]
             if debug:
                 if len(nl) < 1:
                     print("Full last response")
