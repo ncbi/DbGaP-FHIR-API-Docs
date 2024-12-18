@@ -16,8 +16,8 @@ def mock_response_with_entries(entries, next_url=None):
 @patch('requests.Session')
 def test_fetch_all_data_with_valid_response(MockSession):
     mock_session = MockSession.return_value
-    mock_response1 = mock_response_with_entries(
-        [{"resource": {"id": "1"}}], "http://example.com/next")
+    mock_response1 = mock_response_with_entries([
+        {"resource": {"id": "1"}}], "http://example.com/next")
     mock_response2 = mock_response_with_entries([{"resource": {"id": "2"}}])
     mock_session.get.side_effect = [mock_response1, mock_response2]
 
@@ -62,4 +62,3 @@ def test_fetch_all_data_with_num_pages(MockSession):
 
     assert len(result) == 1
     assert result[0]["resource"]["id"] == "1"
-    
