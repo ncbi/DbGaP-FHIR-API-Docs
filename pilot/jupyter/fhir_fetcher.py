@@ -1,8 +1,8 @@
 import requests
 import json
 
-
-def fetch_all_data(session, url, num_pages=0, print_entry="n"):
+# TODO reduce complexity
+def fetch_all_data(session, url, num_pages=0, print_entry="n"):  # noqa: C901
     all_entries = []
     page_counter = 0  # Initialize page counter
 

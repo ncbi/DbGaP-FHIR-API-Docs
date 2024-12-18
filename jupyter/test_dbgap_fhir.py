@@ -1,6 +1,5 @@
 from unittest.mock import patch, MagicMock
-from jupyter.dbgap_fhir import DbGapFHIR, obs_to_df, prettyprint
-
+from jupyter.dbgap_fhir import DbGapFHIR
 
 
 @patch('requests.Session')

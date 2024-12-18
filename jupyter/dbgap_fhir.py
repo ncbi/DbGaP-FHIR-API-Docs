@@ -50,7 +50,8 @@ class DbGapFHIR:
 
     # Resolves all pages for the bundle. Returns an array with all Bundles,
     # including the original Bundle.
-    def resolve_pages(self, bundle, debug=False, sleep=None):
+    # TODO reduce complexity
+    def resolve_pages(self, bundle, debug=False, sleep=None):  # noqa: C901
 
         max_tries = 10  # maximum number of tries to get next page
         retry_sleep = 10  # after multiple failures, wait this number of
