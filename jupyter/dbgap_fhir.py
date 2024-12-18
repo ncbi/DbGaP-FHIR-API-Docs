@@ -2,7 +2,6 @@ import os
 import sys
 import json
 import requests
-from pathlib import Path
 import time
 
 
@@ -53,8 +52,8 @@ class DbGapFHIR:
     def resolve_pages(self, bundle, debug=False, sleep=None):
 
         max_tries = 10  # maximum number of tries to get next page
-        retry_sleep = 10  # after multiple failures, wait this number of seconds
-                          # for a retry
+        retry_sleep = 10  # after multiple failures, wait this number of
+        # seconds for a retry
         try:
             next_page_link = next(
                 filter(lambda link: link["relation"] == "next", bundle["link"]),
