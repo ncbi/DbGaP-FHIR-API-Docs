@@ -30,7 +30,8 @@ def fetch_all_data(session, url, num_pages=0, print_entry="n"):
                     break
 
             # If num_pages is 0, keep fetching until there are no more pages.
-            # If num_pages is not 0, check if the desired number of pages has been reached.
+            # If num_pages is not 0, check if the desired number of pages has
+            # been reached.
             if num_pages != 0 and page_counter >= num_pages:
                 break
 

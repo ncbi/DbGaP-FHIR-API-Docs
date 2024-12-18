@@ -18,7 +18,8 @@ class DbGapFHIR:
         show_stats=True,
     ):
 
-        # Optional: Turn off SSL verification. Useful when dealing with a corporate proxy with self-signed certificates.
+        # Optional: Turn off SSL verification. Useful when dealing with a
+        # corporate proxy with self-signed certificates.
         # This should be set to True unless you actually see certificate errors.
 
         if not verify_ssl:
@@ -30,7 +31,8 @@ class DbGapFHIR:
         self.debug = debug
         self.show_stats = show_stats
 
-        # We make a requests.Session to ensure consistent headers/cookie across all the requests we make
+        # We make a requests.Session to ensure consistent headers/cookie across
+        # all the requests we make
         self.s = requests.Session()
         self.s.headers.update({"Accept": "application/fhir+json"})
         # handle security needed for dbGaP
@@ -46,11 +48,13 @@ class DbGapFHIR:
                 "ERROR: Could not get the server capability statement. "
             )
 
-    # Resolves all pages for the bundle. Returns an array with all Bundles, including the original Bundle.
+    # Resolves all pages for the bundle. Returns an array with all Bundles,
+    # including the original Bundle.
     def resolve_pages(self, bundle, debug=False, sleep=None):
 
         max_tries = 10  # maximum number of tries to get next page
-        retry_sleep = 10  # after multiple failures, wait this number of seconds for a retry
+        retry_sleep = 10  # after multiple failures, wait this number of seconds
+                          # for a retry
         try:
             next_page_link = next(
                 filter(lambda link: link["relation"] == "next", bundle["link"]),
