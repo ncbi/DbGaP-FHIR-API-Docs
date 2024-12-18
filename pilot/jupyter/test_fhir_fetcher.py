@@ -52,8 +52,8 @@ def test_fetch_all_data_with_other_error(MockSession):
 @patch('requests.Session')
 def test_fetch_all_data_with_num_pages(MockSession):
     mock_session = MockSession.return_value
-    mock_response1 = mock_response_with_entries(
-                [{"resource": {"id": "1"}}],
+    mock_response1 = mock_response_with_entries([
+                        {"resource": {"id": "1"}}],
                 "http://example.com/next")
     mock_response2 = mock_response_with_entries([{"resource": {"id": "2"}}])
     mock_session.get.side_effect = [mock_response1, mock_response2]
