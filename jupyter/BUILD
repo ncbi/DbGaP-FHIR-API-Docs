@@ -10,7 +10,7 @@ python_sources(
 )
 
 python_test(
-    name = "dbgap_fhir_test",
-    source = "dbgap_fhir_test.py",
+    name = "test_dbgap_fhir",
+    source = "test_dbgap_fhir.py",
     dependencies = [":dbgap_fhir_src"],
 )
