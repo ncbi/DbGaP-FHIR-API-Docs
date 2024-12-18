@@ -181,7 +181,7 @@ class DbGapFHIR:
                 self.s.headers.update(
                     {"Authorization": f"Bearer {file_content}"}
                 )
-            except:
+            except FileNotFoundError:
                 print("Could not find passport file")
 
 
