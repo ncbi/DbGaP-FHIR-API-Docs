@@ -9,7 +9,7 @@ pants_path="$script_dir/bin/pants/pants"
 
 cert_path=/etc/pki/tls/certs/ca-bundle.crt
 if [ -e "$cert_path" ]; then
-    SSL_CERT_FILE=/etc/pki/tls/certs/ca-bundle.crt "$pants_path" "$@"
+    SSL_CERT_FILE="$cert_path" "$pants_path" "$@"
 else
     echo "Error: certificate bundle is not at $cert_path" >&2
     echo "Attempting to run pants without it" >&2
