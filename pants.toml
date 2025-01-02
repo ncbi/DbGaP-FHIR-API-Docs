@@ -49,5 +49,5 @@ report = [
 ]
 
 [anonymous-telemetry]
-enabled=true
-repo_id="7f9f781c-2f0c-4a2e-b5bb-92b38713f564"
+enabled = true
+repo_id = "901a700e-8a38-44d0-80a0-015587b9e692"
