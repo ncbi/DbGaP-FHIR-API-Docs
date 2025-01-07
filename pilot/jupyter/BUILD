@@ -14,3 +14,15 @@ python_test(
     source = "test_fhir_fetcher.py",
     dependencies = [":fhir_fetcher_src"],
 )
+
+python_test(
+    name = "test_fhir_fetcher_ICAC",
+    source = "test_fhir_fetcher.py",
+    dependencies = ["pilot/jupyter/ICAC:fhir_fetcher_src"],
+)
+
+python_test(
+    name = "test_fhir_fetcher_UDN",
+    source = "test_fhir_fetcher.py",
+    dependencies = ["pilot/jupyter/UDN:fhir_fetcher_src"],
+)
