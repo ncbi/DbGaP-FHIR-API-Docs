@@ -91,6 +91,7 @@ class DbGapFHIR:
             self.bytes_retrieved += len(r.content)
             if "link" not in next_page:
                 print(json.dumps(next_page, indent=3))
+                return [bundle]
             nl = [link for link in next_page["link"] if
                   link["relation"] == "next"]
             if debug:
