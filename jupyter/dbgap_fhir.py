@@ -1,9 +1,13 @@
 import os
 import sys
 import json
+import logging
 import requests
 import time
 import pandas as pd
+
+logging.basicConfig()
+logging.getLogger().setLevel(logging.ERROR)
 
 
 class DbGapFHIR:
@@ -90,7 +94,10 @@ class DbGapFHIR:
             next_page = r.json()
             self.bytes_retrieved += len(r.content)
             if "link" not in next_page:
-                print(json.dumps(next_page, indent=3))
+                logging.warning(
+                    "Received page with no link element. Here is the JSON: %s",
+                    json.dumps(next_page, indent=3),
+                )
                 return [bundle]
             nl = [link for link in next_page["link"] if
                   link["relation"] == "next"]
