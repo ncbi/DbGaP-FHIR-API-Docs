@@ -1,4 +1,4 @@
-import requests
+import requests  # pants: no-infer-dep
 import json
 
 
