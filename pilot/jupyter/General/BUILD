@@ -8,7 +8,7 @@ python_sources(
 )
 
 python_test(
-    name = "test_fhir_fetcher_General",
+    name = "test_fhir_fetcher",
     source = "test_fhir_fetcher.py",
     dependencies = [":fhir_fetcher_src"],
 )

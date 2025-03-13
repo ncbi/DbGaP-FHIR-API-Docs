@@ -1,6 +1,6 @@
 import json
 from unittest.mock import patch, MagicMock
-from pilot.jupyter.fhir_fetcher import fetch_all_data
+from fhir_fetcher import fetch_all_data
 
 
 def mock_response_with_entries(entries, next_url=None):
