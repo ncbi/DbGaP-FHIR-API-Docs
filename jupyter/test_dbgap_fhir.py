@@ -1,7 +1,8 @@
 from unittest.mock import patch, MagicMock
 import pandas as pd
+import json
 from pandas.testing import assert_frame_equal
-from jupyter.dbgap_fhir import DbGapFHIR, obs_to_df
+from jupyter.dbgap_fhir import DbGapFHIR, obs_to_df, prettyprint
 
 @patch('requests.Session')
 def test_run_query_with_limit(MockSession):
@@ -56,6 +57,84 @@ def test_resolve_pages(MockSession):
     assert len(result) == 2
     assert result[0]["entry"][0]["resource"]["id"] == "0"
     assert result[1]["entry"][0]["resource"]["id"] == "1"
+
+@patch('builtins.print')
+@patch('requests.Session')
+def test_resolve_pages_with_key_error(MockSession, mock_print):
+    # Setup
+    mock_session = MockSession.return_value
+    mock_response = MagicMock()
+    mock_session.get.return_value = mock_response
+
+    # Create client
+    client = DbGapFHIR(fhir_server="http://example.com")
+
+    # Create a bundle that will cause a KeyError (missing 'link' key)
+    bundle = {
+        "entry": [{"resource": {"id": "1"}}]
+        # No 'link' key present
+    }
+
+    # Call resolve_pages and verify that it raises a KeyError
+    key_error_raised = False
+    try:
+        client.resolve_pages(bundle)
+    except KeyError:
+        key_error_raised = True
+
+    assert key_error_raised, "Expected KeyError was not raised"
+
+    # Verify that the appropriate messages were printed
+    mock_print.assert_any_call("Key error link/next_page")
+    mock_print.assert_any_call(json.dumps(bundle, indent=3))
+
+
+@patch('time.sleep')
+@patch('builtins.print')
+@patch('requests.Session')
+def test_resolve_pages_with_sleep_api_debug(MockSession, mock_print, mock_sleep):
+    # Setup mocks
+    mock_session = MockSession.return_value
+
+    # Create mock response for next page request
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "link": [],  # No more next pages
+        "entry": [{"resource": {"id": "2"}}]
+    }
+    mock_response.content = b'{"link": [], "entry": [{"resource": {"id": "2"}}]}'
+    mock_session.get.return_value = mock_response
+
+    # Create client with API key
+    client = DbGapFHIR(fhir_server="http://example.com", api_key="test_api_key")
+
+    # Create a bundle with a next link
+    bundle = {
+        "link": [{"relation": "next", "url": "http://example.com/next"}],
+        "entry": [{"resource": {"id": "1"}}]
+    }
+
+    # Call resolve_pages with sleep and debug
+    sleep_time = 2  # 2 seconds
+    result = client.resolve_pages(bundle, debug=True, sleep=sleep_time)
+
+    # Verify sleep was called with the right value
+    mock_sleep.assert_called_once_with(sleep_time)
+
+    # Verify API key was added to the URL
+    expected_url = "http://example.com/next&api_key=test_api_key"
+    mock_session.get.assert_called_with(expected_url)
+
+    # Verify debug output was printed
+    mock_print.assert_any_call("_" * 80)
+    mock_print.assert_any_call(expected_url)
+
+    # Verify the result contains both pages
+    assert len(result) == 2
+    assert result[0]["entry"][0]["resource"]["id"] == "1"
+    assert result[1]["entry"][0]["resource"]["id"] == "2"
+
 
 @patch('os.path.expanduser')
 @patch('builtins.open', new_callable=MagicMock)
@@ -149,3 +228,20 @@ def test_obs_to_df():
     assert "SUBJECT_ID_SUB001" in result_df.columns
     assert result_df.loc["Patient/123", "Gender"] == "Male"
     assert result_df.loc["Patient/456", "SAMPLE_ID_SAM001"] == "B789"
+
+
+@patch('builtins.print')
+def test_prettyprint(mock_print):
+    # Test data
+    test_json = {
+        "name": "test",
+        "values": [1, 2, 3],
+        "nested": {"key": "value"}
+    }
+
+    # Call the function
+    prettyprint(test_json)
+
+    # Verify print was called with properly formatted JSON
+    expected_output = json.dumps(test_json, indent=3)
+    mock_print.assert_called_once_with(expected_output)
