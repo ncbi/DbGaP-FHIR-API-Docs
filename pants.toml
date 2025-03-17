@@ -48,6 +48,9 @@ report = [
        "html",
 ]
 
+[test]
+use_coverage="True"
+
 [anonymous-telemetry]
 enabled = true
 repo_id = "901a700e-8a38-44d0-80a0-015587b9e692"
