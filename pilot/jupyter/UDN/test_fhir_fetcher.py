@@ -15,14 +15,14 @@ def mock_response_with_entries(entries, next_url=None):
 
 
 @patch('requests.Session')
-def test_fetch_all_data_with_valid_response(MockSession):
-    mock_session = MockSession.return_value
+def test_fetch_all_data_with_valid_response(mock_session):
+    mock_session_instance = mock_session.return_value
     mock_response1 = mock_response_with_entries([
-        {"resource": {"id": "1"}}], "http://example.com/next")
+        {"resource": {"id": "1"}}], "https://example.com/next")
     mock_response2 = mock_response_with_entries([{"resource": {"id": "2"}}])
-    mock_session.get.side_effect = [mock_response1, mock_response2]
+    mock_session_instance.get.side_effect = [mock_response1, mock_response2]
 
-    result = fetch_all_data(mock_session, "http://example.com")
+    result = fetch_all_data(mock_session_instance, "https://example.com")
 
     assert len(result) == 2
     assert result[0]["resource"]["id"] == "1"
@@ -30,36 +30,38 @@ def test_fetch_all_data_with_valid_response(MockSession):
 
 
 @patch('requests.Session')
-def test_fetch_all_data_with_no_entries(MockSession):
-    mock_session = MockSession.return_value
+def test_fetch_all_data_with_no_entries(mock_session):
+    mock_session_instance = mock_session.return_value
     mock_response = mock_response_with_entries([])
-    mock_session.get.return_value = mock_response
+    mock_session_instance.get.return_value = mock_response
 
-    result = fetch_all_data(mock_session, "http://example.com")
-
-    assert len(result) == 0
-
-
-@patch('requests.Session')
-def test_fetch_all_data_with_other_error(MockSession):
-    mock_session = MockSession.return_value
-    mock_session.get.side_effect = Exception("Other Error")
-
-    result = fetch_all_data(mock_session, "http://example.com")
+    result = fetch_all_data(mock_session_instance, "https://example.com")
 
     assert len(result) == 0
 
 
 @patch('requests.Session')
-def test_fetch_all_data_with_num_pages(MockSession):
-    mock_session = MockSession.return_value
+def test_fetch_all_data_with_other_error(mock_session):
+    mock_session_instance = mock_session.return_value
+    mock_session_instance.get.side_effect = Exception("Other Error")
+
+    result = fetch_all_data(mock_session_instance, "https://example.com")
+
+    assert len(result) == 0
+
+
+@patch('requests.Session')
+def test_fetch_all_data_with_num_pages(mock_session):
+    mock_session_instance = mock_session.return_value
     mock_response1 = mock_response_with_entries(
         [{"resource": {"id": "1"}}],
-        "http://example.com/next")
+        "https://example.com/next")
     mock_response2 = mock_response_with_entries([{"resource": {"id": "2"}}])
-    mock_session.get.side_effect = [mock_response1, mock_response2]
+    mock_session_instance.get.side_effect = [mock_response1, mock_response2]
 
-    result = fetch_all_data(mock_session, "http://example.com", num_pages=1)
+    result = fetch_all_data(
+        mock_session_instance, "https://example.com", num_pages=1
+    )
 
     assert len(result) == 1
     assert result[0]["resource"]["id"] == "1"
@@ -67,15 +69,17 @@ def test_fetch_all_data_with_num_pages(MockSession):
 
 @patch('builtins.print')
 @patch('requests.Session')
-def test_fetch_all_data_with_print_entry(MockSession, mock_print):
+def test_fetch_all_data_with_print_entry(mock_session, mock_print):
     # Set up mock session
-    mock_session = MockSession.return_value
+    mock_session_instance = mock_session.return_value
     entries = [{"resource": {"id": "1"}}, {"resource": {"id": "2"}}]
     mock_response = mock_response_with_entries(entries)
-    mock_session.get.return_value = mock_response
+    mock_session_instance.get.return_value = mock_response
 
     # Call fetch_all_data with print_entry='y'
-    result = fetch_all_data(mock_session, "http://example.com", print_entry='y')
+    result = fetch_all_data(
+        mock_session_instance, "https://example.com", print_entry='y'
+    )
 
     # Verify print function was called with expected arguments
     mock_print.assert_any_call("Data returned in this iteration:")
@@ -98,17 +102,21 @@ def test_fetch_all_data_with_print_entry(MockSession, mock_print):
 
 @patch('builtins.print')
 @patch('requests.Session')
-def test_fetch_all_data_with_http_error_and_value_error(MockSession, mock_print):
+def test_fetch_all_data_with_http_error_and_value_error(
+    mock_session, mock_print
+):
     # Set up mock session and response
-    mock_session = MockSession.return_value
+    mock_session_instance = mock_session.return_value
     mock_response = MagicMock()
-    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("404 Client Error")
+    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
+        "404 Client Error"
+    )
     mock_response.json.side_effect = ValueError("Invalid JSON")
     mock_response.content = b"Not a JSON response"
-    mock_session.get.return_value = mock_response
+    mock_session_instance.get.return_value = mock_response
 
     # Call the function under test
-    result = fetch_all_data(mock_session, "http://example.com")
+    result = fetch_all_data(mock_session_instance, "https://example.com")
 
     # Verify the result is empty (due to the error)
     assert len(result) == 0
