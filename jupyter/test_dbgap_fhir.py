@@ -4,15 +4,16 @@ import json
 from pandas.testing import assert_frame_equal
 from jupyter.dbgap_fhir import DbGapFHIR, obs_to_df, prettyprint
 
+
 @patch('requests.Session')
-def test_run_query_with_limit(MockSession):
-    mock_session = MockSession.return_value
+def test_run_query_with_limit(mock_session):
+    mock_session_instance = mock_session.return_value
     mock_response = MagicMock()
     mock_response.json.return_value = {"entry": [{"resource": {"id": "1"}}]}
     mock_response.content = b'{"entry": [{"resource": {"id": "1"}}]}'
-    mock_session.get.return_value = mock_response
+    mock_session_instance.get.return_value = mock_response
 
-    client = DbGapFHIR(fhir_server="http://example.com")
+    client = DbGapFHIR(fhir_server="https://example.com")
     result = client.run_query("Patient", limit=True)
 
     assert len(result) == 1
@@ -20,8 +21,8 @@ def test_run_query_with_limit(MockSession):
 
 
 @patch('requests.Session')
-def test_resolve_pages(MockSession):
-    mock_session = MockSession.return_value
+def test_resolve_pages(mock_session):
+    mock_session_instance = mock_session.return_value
     mock_response_metadata = MagicMock()
     mock_response_page_1 = MagicMock()
     mock_response_page_2 = MagicMock()
@@ -32,8 +33,8 @@ def test_resolve_pages(MockSession):
 
     # Mock the first page response
     mock_response_page_1.json.return_value = {
-        "link": [{"relation": "next", "url": "http://example.com/page2"}],
-        "entry": [{"resource": {"id": "1"}}]
+        "link": [{"relation": "next", "url": "https://example.com/page2"}],
+        "entry": [{"resource": {"id": "1"}}],
     }
 
     # Mock the second page response
@@ -42,14 +43,14 @@ def test_resolve_pages(MockSession):
     }
 
     # Set the return values for the session's get method
-    mock_session.get.side_effect = [mock_response_metadata,
+    mock_session_instance.get.side_effect = [mock_response_metadata,
                                     mock_response_page_1,
                                     mock_response_page_2]
 
-    client = DbGapFHIR(fhir_server="http://example.com")
+    client = DbGapFHIR(fhir_server="https://example.com")
     bundle = {
-        "link": [{"relation": "next", "url": "http://example.com/page1"}],
-        "entry": [{"resource": {"id": "0"}}]
+        "link": [{"relation": "next", "url": "https://example.com/page1"}],
+        "entry": [{"resource": {"id": "0"}}],
     }
 
     result = client.resolve_pages(bundle)
@@ -58,16 +59,17 @@ def test_resolve_pages(MockSession):
     assert result[0]["entry"][0]["resource"]["id"] == "0"
     assert result[1]["entry"][0]["resource"]["id"] == "1"
 
+
 @patch('builtins.print')
 @patch('requests.Session')
-def test_resolve_pages_with_key_error(MockSession, mock_print):
+def test_resolve_pages_with_key_error(mock_session, mock_print):
     # Setup
-    mock_session = MockSession.return_value
+    mock_session_instance = mock_session.return_value
     mock_response = MagicMock()
-    mock_session.get.return_value = mock_response
+    mock_session_instance.get.return_value = mock_response
 
     # Create client
-    client = DbGapFHIR(fhir_server="http://example.com")
+    client = DbGapFHIR(fhir_server="https://example.com")
 
     # Create a bundle that will cause a KeyError (missing 'link' key)
     bundle = {
@@ -92,9 +94,11 @@ def test_resolve_pages_with_key_error(MockSession, mock_print):
 @patch('time.sleep')
 @patch('builtins.print')
 @patch('requests.Session')
-def test_resolve_pages_with_sleep_api_debug(MockSession, mock_print, mock_sleep):
+def test_resolve_pages_with_sleep_api_debug(
+    mock_session, mock_print, mock_sleep
+):
     # Setup mocks
-    mock_session = MockSession.return_value
+    mock_session_instance = mock_session.return_value
 
     # Create mock response for next page request
     mock_response = MagicMock()
@@ -103,16 +107,20 @@ def test_resolve_pages_with_sleep_api_debug(MockSession, mock_print, mock_sleep)
         "link": [],  # No more next pages
         "entry": [{"resource": {"id": "2"}}]
     }
-    mock_response.content = b'{"link": [], "entry": [{"resource": {"id": "2"}}]}'
-    mock_session.get.return_value = mock_response
+    mock_response.content = (
+        b'{"link": [], "entry": [{"resource": {"id": "2"}}]}'
+    )
+    mock_session_instance.get.return_value = mock_response
 
     # Create client with API key
-    client = DbGapFHIR(fhir_server="http://example.com", api_key="test_api_key")
+    client = DbGapFHIR(
+        fhir_server="https://example.com", api_key="test_api_key"
+    )
 
     # Create a bundle with a next link
     bundle = {
-        "link": [{"relation": "next", "url": "http://example.com/next"}],
-        "entry": [{"resource": {"id": "1"}}]
+        "link": [{"relation": "next", "url": "https://example.com/next"}],
+        "entry": [{"resource": {"id": "1"}}],
     }
 
     # Call resolve_pages with sleep and debug
@@ -123,8 +131,8 @@ def test_resolve_pages_with_sleep_api_debug(MockSession, mock_print, mock_sleep)
     mock_sleep.assert_called_once_with(sleep_time)
 
     # Verify API key was added to the URL
-    expected_url = "http://example.com/next&api_key=test_api_key"
-    mock_session.get.assert_called_with(expected_url)
+    expected_url = "https://example.com/next&api_key=test_api_key"
+    mock_session_instance.get.assert_called_with(expected_url)
 
     # Verify debug output was printed
     mock_print.assert_any_call("_" * 80)
@@ -139,13 +147,13 @@ def test_resolve_pages_with_sleep_api_debug(MockSession, mock_print, mock_sleep)
 @patch('os.path.expanduser')
 @patch('builtins.open', new_callable=MagicMock)
 @patch('requests.Session')
-def test_add_passport_with_file(MockSession, mock_open, mock_expanduser):
+def test_add_passport_with_file(mock_session, mock_open, mock_expanduser):
     # Setup mocks
-    mock_session = MockSession.return_value
+    mock_session_instance = mock_session.return_value
     # Make headers a MagicMock instead of a regular dictionary
-    mock_session.headers = MagicMock()
+    mock_session_instance.headers = MagicMock()
     mock_response = MagicMock()
-    mock_session.get.return_value = mock_response
+    mock_session_instance.get.return_value = mock_response
 
     # Set up file reading mock
     mock_file = MagicMock()
@@ -156,16 +164,18 @@ def test_add_passport_with_file(MockSession, mock_open, mock_expanduser):
     mock_expanduser.return_value = "/expanded/path/to/passport.txt"
 
     # Create client with passport
-    client = DbGapFHIR(fhir_server="http://example.com", passport="~/passport.txt")
+    DbGapFHIR(fhir_server="https://example.com", passport="~/passport.txt")
 
     # Verify the passport file was read correctly
     mock_expanduser.assert_called_once_with("~/passport.txt")
     mock_open.assert_called_once_with("/expanded/path/to/passport.txt")
 
-    mock_session.headers.update.assert_called_with({"Authorization": "Bearer "
-                                                              "test_passport_token"})
-    mock_session.headers.update.assert_called_with({"Authorization": "Bearer "
-                                                    "test_passport_token"})
+    mock_session_instance.headers.update.assert_called_with(
+        {"Authorization": "Bearer test_passport_token"}
+    )
+    mock_session_instance.headers.update.assert_called_with(
+        {"Authorization": "Bearer test_passport_token"}
+    )
 
 
 def test_obs_to_df():
