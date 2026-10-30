@@ -1,0 +1,3 @@
+notebook
+requests
+ipykernel
